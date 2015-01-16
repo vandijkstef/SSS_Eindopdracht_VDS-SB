@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-//var fs = require('fs');
 
 // REDIRECT TO LOGIN IF USER IS NOT LOGGED IN
 // WITH ERROR MESSAGE SAYING YOU CAN'T UPLOAD PHOTOS
