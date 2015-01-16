@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
+uploadFlag = "inactive";
 
 //  =================
 //  = Setup the app =
@@ -39,19 +40,21 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Setup Multer
 app.use(multer({
   dest: './uploads/',
-  onFileUploadStart: function (file) {
+  onFileUploadStart: function (file, req, res) {
     console.log(file.mimetype);
     if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
+      uploadFlag = false;
       return false;
     } else {
-      console.log(file.fieldname + ' is starting ...');
+      console.log(file.originalname + ' is starting ...');
     }
   },
-  onFileUploadData: function (file, data) {
-    console.log(data.length + ' of ' + file.fieldname + ' arrived');
-  },
+  rename: function (fieldname, filename) {
+    return filename
+  }, 
   onFileUploadComplete: function (file) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path);
+    console.log(file.originalname + ' uploaded to  ' + file.path);
+    uploadFlag = true;
   }
 }));
 
