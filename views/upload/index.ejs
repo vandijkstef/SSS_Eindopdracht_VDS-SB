@@ -1,0 +1,22 @@
+<!-- Upload Form -->
+<h1>Upload Photo</h1>
+
+<% if (locals.message) { %>
+    <h2><%= message %></h2>
+<% } %>
+
+<form method="post" action="<%= req.baseUrl + "/" %>" enctype="multipart/form-data" id="uploadform">
+	<div>
+      	<label for="imagefile">Upload Image</label>
+      	<input type="file" name="imagefile">
+    </div>
+
+    <div>
+      	<label for="caption">Caption</label>
+      	<textarea name="caption" rows="5"></textarea>
+    </div>
+
+    <div>
+      <button type="submit">Save</button>
+    </div>
+</form>
