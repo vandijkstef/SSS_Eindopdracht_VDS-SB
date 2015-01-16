@@ -1,0 +1,14 @@
+<!-- Gallery Overview -->
+<h1>Image</h1>
+
+<% if (locals.message) { %>
+    <h2><%= message %></h2>
+<% } %>
+
+<% if (locals.image) { %>
+	<section>
+		<img src="/<%= image.filename %>" alt="">
+		<p><%= image.caption %></p>
+		<p><%= image.username %></p>
+	</section>
+<% } %>
