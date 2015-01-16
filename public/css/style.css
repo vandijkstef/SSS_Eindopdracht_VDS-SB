@@ -1,0 +1,170 @@
+/******************
+Stylesheet for NodeJS Photo sharing app
+For CMD @ HvA
+Author: Sem Bakkum and Stef van Dijk
+
+Mobile-First Approach
+Contents:
+	- Common
+	- Header/Nav
+	- Page
+		- Product listing
+		- Product Info
+	- Footer
+	- Min-width: 30 em (Tablet)
+		- Same structure
+	- Min-width: 60 em (Desktop)
+		- Same structure
+	- Min-width: 85 em (Epic Desktop)
+		- Same structure
+
+******************/
+
+
+/* ****** */
+/* Common */
+/* ****** */
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		font-family: "Calibri", Arial, sans-serif;
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+
+	}
+
+	p {
+		max-width: 30em;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	a:link {
+
+	}
+
+	a:visited {
+		text-decoration: italic
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+	a:active {
+		text-decoration: none;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+/* ************ */
+/* Header / Nav */
+/* ************ */
+
+	header {
+
+	}
+
+/* **** */
+/* Page */
+/* **** */
+
+
+/* ****** */
+/* Footer */
+/* ****** */
+
+	footer {
+		
+	}
+
+/* ****** */
+/* Tablet */
+/* ****** */
+
+	@media all and (min-width: 30em) {
+		/* ****** */
+		/* Common */
+		/* ****** */
+
+		
+		/* ************ */
+		/* Header / Nav */
+		/* ************ */
+
+
+		/* **** */
+		/* Page */
+		/* **** */
+
+
+		/* ****** */
+		/* Footer */
+		/* ****** */
+
+	}
+
+/* ******* */
+/* Desktop */
+/* ******* */
+	
+	@media all and (min-width: 60em) {
+		/* ****** */
+		/* Common */
+		/* ****** */
+
+		
+		/* ************ */
+		/* Header / Nav */
+		/* ************ */
+			
+
+		/* **** */
+		/* Page */
+		/* **** */
+
+
+		/* ****** */
+		/* Footer */
+		/* ****** */
+			
+	}
+
+/* ************ */
+/* Epic Desktop */
+/* ************ */
+	
+	@media all and (min-width: 85em) {
+		/* ****** */
+		/* Common */
+		/* ****** */
+
+		
+		/* ************ */
+		/* Header / Nav */
+		/* ************ */
+			
+
+		/* **** */
+		/* Page */
+		/* **** */
+
+
+		/* ****** */
+		/* Footer */
+		/* ****** */
+			
+	}	
