@@ -18,7 +18,8 @@ router.post('/', function(req, res){
 			console.log(sql);
 		    connection.query(sql, function(err){
 		      	if(err) {
-		      		console.log("lol");
+		      		console.log("SQL Error");
+		      		return;
 		      	} else {
 		      		var message = "Image upload Succes!";
 					var data = {req:req, message:message}
@@ -32,7 +33,7 @@ router.post('/', function(req, res){
 		var message = "The file uploaded is not an image";
 		var data = {req:req, message:message}
 		res.render('upload/index.ejs', data);
-	}
+	}	
 });
 
 module.exports = router;

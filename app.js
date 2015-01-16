@@ -25,6 +25,7 @@ app.set('view engine', 'ejs');
 
 // Setup serving static assets
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Add session support
 app.use(session({
@@ -76,10 +77,11 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 //  ===========
 var testRouter = require('./routers/test');
 var uploadRouter = require('./routers/upload');
-
+var galleryRouter = require('./routers/gallery');
 
 app.use('/test', testRouter);
-app.use('/upload', uploadRouter)
+app.use('/upload', uploadRouter);
+app.use('/gallery', galleryRouter);
 
 // This should be the ONLY route in this file!
 app.get('/', function(req, res){

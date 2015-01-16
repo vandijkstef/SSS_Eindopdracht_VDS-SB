@@ -1,0 +1,16 @@
+<!-- Gallery Overview -->
+<h1>Gallery</h1>
+
+<% if (locals.message) { %>
+    <h2><%= message %></h2>
+<% } %>
+
+<% if (locals.images) { %>
+	<% images.forEach(function(image) { %>
+		<section>
+			<img src="<%= image.filename %>" alt="">
+			<p><%= image.caption%></p>
+		</section>
+	<% }) %>
+    
+<% } %>
