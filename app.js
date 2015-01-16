@@ -42,7 +42,7 @@ app.use(multer({
   dest: './uploads/',
   onFileUploadStart: function (file, req, res) {
     console.log(file.mimetype);
-    if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
+    if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/gif') {
       uploadFlag = false;
       return false;
     } else {

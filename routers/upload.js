@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 // REDIRECT TO LOGIN IF USER IS NOT LOGGED IN
 // WITH ERROR MESSAGE SAYING YOU CAN'T UPLOAD PHOTOS
@@ -12,9 +13,19 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
 	// Processing if upload succeeded
 	if(uploadFlag == true) {
-		var message = "Image upload Succes!";
-		var data = {req:req, message:message}
-		res.render('upload/index.ejs', data);
+		req.getConnection(function(err, connection){
+			var sql = 'INSERT INTO photos (user_id, caption, filename) VALUES (1,"' + req.body.caption + '","' + req.files.imagefile.name + '")';
+			console.log(sql);
+		    connection.query(sql, function(err){
+		      	if(err) {
+		      		console.log("lol");
+		      	} else {
+		      		var message = "Image upload Succes!";
+					var data = {req:req, message:message}
+					res.render('upload/index.ejs', data);
+		      	}
+	      	})
+		})
 	}
 	// Processing if upload was not an image
 	if(uploadFlag == false) {
