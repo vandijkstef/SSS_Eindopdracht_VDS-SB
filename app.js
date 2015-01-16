@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Setup Multer
 app.use(multer({
   dest: './uploads/',
-  onFileUploadStart: function (file, req, res) {
+  onFileUploadStart: function (file) {
     console.log(file.mimetype);
     if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/gif') {
       uploadFlag = false;
