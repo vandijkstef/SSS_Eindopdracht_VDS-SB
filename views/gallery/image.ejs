@@ -5,10 +5,4 @@
     <h2><%= message %></h2>
 <% } %>
 
-<% if (locals.image) { %>
-	<section>
-		<img src="/<%= image.filename %>" alt="">
-		<p><%= image.caption %></p>
-		<p><%= image.username %></p>
-	</section>
-<% } %>
+<%= include ../layout/image %>
