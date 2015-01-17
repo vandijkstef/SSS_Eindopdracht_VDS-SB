@@ -27,7 +27,7 @@ router.get('/image', function(req, res){
 });
 
 // Render the single image page
-router.get('/image/:id', function(req,res){
+router.get('/image/:id', function(req, res){
 	var imageId = req.param("id");
 	console.log(imageId);
 	req.getConnection(function(err, connection){
@@ -45,13 +45,44 @@ router.get('/image/:id', function(req,res){
 				var data = { req: req, message: message }
 				res.render('gallery/image.ejs', data);
 			} else{
-				console.log(image);
-				var message = null;
-				var data = { req: req, message: message, images: image }
-				res.render('gallery/image.ejs', data);
+				var sql = 'SELECT * FROM comments WHERE photo_id = ' + imageId;
+				console.log(sql);
+				connection.query(sql, function(err, comments){
+					console.log(comments);
+					console.log(image);
+					var message = null;
+					var data = { req: req, message: message, images: image, comments: comments }
+					res.render('gallery/image.ejs', data);
+				})
 			}
 		});
 	});
 });
+
+router.post('/image/:id', function(req, res){
+	req.getConnection(function(err, connection){
+		// Get all vars
+		var imageId = req.param("id");
+		var comment = req.body.comment;
+		var username = req.body.username;
+		var is_user = 0;
+		// Validate
+		if (comment == undefined || comment.length < 5) {
+			var message = "Comment too short";
+			var data = { req: req, message: message }
+			res.render('gallery/image.ejs', data);
+			return
+		}
+		if (username == undefined) {
+			username = 'anonymous';
+		}
+		var sql = 'INSERT INTO comments (photo_id, created_at, comment, username, is_user) VALUES (' + imageId + ',"' + new Date().toISOString().slice(0, 19).replace('T', ' ') + '","' + comment + '", "' + username + '",' + is_user + ')';
+		console.log(sql);
+		var message = "Comment Inserted";
+		var data = { req: req, message: message }
+		res.render('gallery/image.ejs', data);
+	})
+
+})
 
 module.exports = router;

@@ -5,5 +5,36 @@
 			<p><%= image.caption %></p>
 			<p><%= image.username %></p>
 		</section>
+		<% if(images.length == 1) { %>
+			<% if (locals.comments) { %>
+				<section>
+					<h2>Comments</h2>
+					<% comments.forEach(function(comment) { %>
+						<div>
+							<p><%= comment.comment %></p>
+							<p><%= comment.username %></p>
+							<p><%= comment.created_at %></p>
+						</div>
+					<% }) %>
+				</section>	
+			<% } %>
+			<section>
+				<h2>Respond</h2>
+				<form method="post" action="<%= req.baseUrl + "/image" %>/<%= image.id %>" enctype="multipart/form-data" id="commentform">
+				    <div>
+				      	<label for="username">Name</label>
+				      	<input type=text name="username" placeholder="Anomynous"/>
+				      	<p>Please <a href="/login">login</a> if you have an account</p>
+				    </div>
+				    <div>
+				      	<label for="comment">Comment</label>
+				      	<textarea name="comment" rows="5"></textarea>
+				    </div>
+				    <div>
+				      <button type="submit">Comment</button>
+				    </div>
+				</form>
+			</section>
+		<% } %>	
 	<% }) %>
 <% } %>
