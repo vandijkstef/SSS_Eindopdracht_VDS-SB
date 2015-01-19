@@ -78,11 +78,18 @@ router.post('/image/:id', function(req, res){
 		}
 		var sql = 'INSERT INTO comments (photo_id, created_at, comment, username, is_user) VALUES (' + imageId + ',"' + new Date().toISOString().slice(0, 19).replace('T', ' ') + '","' + comment + '", "' + username + '",' + is_user + ')';
 		console.log(sql);
-		var message = "Comment Inserted";
-		var data = { req: req, message: message }
-		res.render('gallery/image.ejs', data);
-	})
-
-})
+		connection.query(sql, function(err, comments){
+			if(err) {
+	      		var message = "Database Error" + err;
+				var data = { req: req, message: message }
+				res.render('gallery/index.ejs', data);
+	      	} else {
+	      		var message = "Comment Inserted";
+				var data = { req: req, message: message }
+				res.render('gallery/image.ejs', data);
+	      	}
+		});
+	});
+});
 
 module.exports = router;
