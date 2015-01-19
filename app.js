@@ -76,10 +76,12 @@ app.use(myConnection(mysql, dbOptions, 'single'));
 //  = Routers =
 //  ===========
 var testRouter = require('./routers/test');
+var userRouter = require('./routers/users');
 var uploadRouter = require('./routers/upload');
 var galleryRouter = require('./routers/gallery');
 
 app.use('/test', testRouter);
+app.use('/users', userRouter);
 app.use('/upload', uploadRouter);
 app.use('/gallery', galleryRouter);
 
