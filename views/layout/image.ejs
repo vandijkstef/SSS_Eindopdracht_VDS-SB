@@ -1,9 +1,11 @@
 <% if (locals.images) { %>
 	<% images.forEach(function(image) { %>
 		<section>
-			<img src="/<%= image.filename %>" alt="">
-			<p><%= image.caption %></p>
-			<p><%= image.username %></p>
+			<a href="/gallery/image/<%=image.id %>">
+				<img src="/<%= image.filename %>" alt="">
+				<p><%= image.caption %></p>
+				<p><%= image.username %></p>
+			</a>
 		</section>
 		<% if(images.length == 1) { %>
 			<% if (locals.comments) { %>

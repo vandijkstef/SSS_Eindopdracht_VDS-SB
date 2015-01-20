@@ -2,6 +2,18 @@
 <html>
 	<head>
 		<title>Photo Share - Server-side scripting</title>
-		<link rel='stylesheet' href='css/style.css' />
+		<link rel='stylesheet' href='/css/style.css' />
+		<nav>
+			<ul>
+				<li><a href="/gallery">Gallery</a></li>
+				<li><a href="/users">Profile</a></li>
+				<% if (req.session.userId) { %>
+					<li><a href="/upload">Upload</a></li>
+				<% } %>
+			</ul>
+		</nav>
 	</head>
 	<body>
+		<% if (req.session.userId) { %>
+   			<h2>Logged in as user test text</h2>
+		<% } %>

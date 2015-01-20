@@ -6,8 +6,14 @@ var fs = require('fs');
 // WITH ERROR MESSAGE SAYING YOU CAN'T UPLOAD PHOTOS
 
 router.get('/', function(req, res){
-	var data = { req: req }
-	res.render('upload/index.ejs', data);
+	// Only allow logged in users
+	if(req.session.userID) {
+		var data = { req: req }
+		res.render('upload/index.ejs', data);
+	} else {
+		// Or send them to the gallery
+		res.redirect('/gallery');
+	}
 });
 
 router.post('/', function(req, res){
