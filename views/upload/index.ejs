@@ -1,11 +1,6 @@
 <%= include ../layout/header %>
 <!-- Upload Form -->
 <h1>Upload Photo</h1>
-
-<% if (locals.message) { %>
-    <h2><%= message %></h2>
-<% } %>
-
 <form method="post" action="<%= req.baseUrl + "/" %>" enctype="multipart/form-data" id="uploadform">
 	<div>
       	<label for="imagefile">Upload Image</label>

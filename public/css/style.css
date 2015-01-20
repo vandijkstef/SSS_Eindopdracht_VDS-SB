@@ -70,6 +70,11 @@ Contents:
 		list-style: none;
 	}
 
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
 /* ************ */
 /* Header / Nav */
 /* ************ */
@@ -77,11 +82,29 @@ Contents:
 	header {
 
 	}
+	
+	header > nav > ul{
+		display: flex;
+	}
 
 /* **** */
 /* Page */
 /* **** */
 
+	article {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+	}
+
+	article > section {
+		margin: 1rem;
+	}
+
+	article#gallery > section > a > img {
+		max-width: 10em;
+	}
 
 /* ****** */
 /* Footer */

@@ -1,4 +1,9 @@
-<% if (locals.images) { %>
+<% if (locals.images) { 
+	if(images.length == 1) {%>
+	<article>
+<% } else { %>
+	<article id="gallery">
+<% } %>
 	<% images.forEach(function(image) { %>
 		<section>
 			<a href="/gallery/image/<%=image.id %>">
@@ -39,4 +44,5 @@
 			</section>
 		<% } %>	
 	<% }) %>
+	</article>
 <% } %>

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-// Wat doet dit blok?
+// Moet redirecten naar gallery of profile
 // router.get("/welcome", function(req, res, next){
 //   res.render("users/welcome");
 // });

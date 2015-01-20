@@ -13,8 +13,9 @@ router.get('/', function(req, res){
 				res.render('gallery/index.ejs', data);
 	      	} else {
 	      		console.log(gallery);
+	      		var title = "Gallery";
 	      		var message = null;
-				var data = { req: req, message: message, images: gallery }
+				var data = { req: req, title: title, message: message, images: gallery }
 				res.render('gallery/index.ejs', data);
 	      	}
       	});
