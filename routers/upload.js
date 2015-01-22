@@ -7,11 +7,13 @@ var fs = require('fs');
 
 router.get('/', function(req, res){
 	// Only allow logged in users
-	if(req.session.userID) {
+	if(req.session.userId) {
 		var data = { req: req }
 		res.render('upload/index.ejs', data);
+		console.log(req.session);
 	} else {
 		// Or send them to the gallery
+		console.log(req.session);
 		res.redirect('/gallery');
 	}
 });
@@ -20,7 +22,7 @@ router.post('/', function(req, res){
 	// Processing if upload succeeded
 	if(uploadFlag == true) {
 		req.getConnection(function(err, connection){
-			var sql = 'INSERT INTO photos (user_id, caption, filename) VALUES (1,"' + req.body.caption + '","' + req.files.imagefile.name + '")';
+			var sql = 'INSERT INTO photos (user_id, caption, filename) VALUES (' + req.session.userId + ',"' + req.body.caption + '","' + req.files.imagefile.name + '")';
 			console.log(sql);
 		    connection.query(sql, function(err){
 		      	if(err) {

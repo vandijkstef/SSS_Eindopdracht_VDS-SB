@@ -31,8 +31,10 @@ router.post("/login", function(req, res){
 
       if(records.length > 0){
         console.log(req.session);
+        console.log(records[0]);
         req.session.userId = records[0].id;
-        console.log("Logged in! HOORAY", records[0]);
+        req.session.username = records[0].name;
+        console.log("Logged in! HOORAY", req.session);
         res.render("users/welcome", {user: records[0]});
       } else {
         var data = {

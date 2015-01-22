@@ -63,6 +63,7 @@ router.get('/image/:id', function(req, res){
 router.post('/image/:id', function(req, res){
 	req.getConnection(function(err, connection){
 		// Get all vars
+		console.log(req.body);
 		var imageId = req.param("id");
 		var comment = req.body.comment;
 		var username = req.body.username;

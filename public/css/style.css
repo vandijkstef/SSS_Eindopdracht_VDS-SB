@@ -102,9 +102,15 @@ Contents:
 		margin: 1rem;
 	}
 
-	article#gallery > section > a > img {
+	article > section > a > img {
 		max-width: 10em;
 	}
+
+	article#image > section > a {
+		display: block;
+		min-width: 100vw;
+	}
+	
 
 /* ****** */
 /* Footer */

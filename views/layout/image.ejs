@@ -1,8 +1,8 @@
 <% if (locals.images) { 
-	if(images.length == 1) {%>
+	if(images.length != 1) {%>
 	<article>
 <% } else { %>
-	<article id="gallery">
+	<article id="image">
 <% } %>
 	<% images.forEach(function(image) { %>
 		<section>
@@ -13,7 +13,7 @@
 			</a>
 		</section>
 		<% if(images.length == 1) { %>
-			<% if (locals.comments) { %>
+			<% if (locals.comments && locals.comments.length >= 1) { %>
 				<section>
 					<h2>Comments</h2>
 					<% comments.forEach(function(comment) { %>
@@ -30,8 +30,13 @@
 				<form method="post" action="<%= req.baseUrl + "/image" %>/<%= image.id %>" enctype="multipart/form-data" id="commentform">
 				    <div>
 				      	<label for="username">Name</label>
-				      	<input type=text name="username" placeholder="Anomynous"/>
-				      	<p>Please <a href="/login">login</a> if you have an account</p>
+				      	<% if (req.session.userId) { %>
+				      		<p><%= req.session.username %></p>
+				   			<input type="hidden" name="username" value="<%= req.session.username %>" />
+						<% } else { %>
+					      	<input type="text" name="username" placeholder="Anomynous"/>
+					      	<p>Please <a href="/users">login</a> if you have an account</p>
+				      	<% } %>
 				    </div>
 				    <div>
 				      	<label for="comment">Comment</label>
