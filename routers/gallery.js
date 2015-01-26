@@ -13,10 +13,9 @@ router.get('/', function(req, res){
 				res.render('gallery/index.ejs', data);
 	      	} else {
 	      		console.log(gallery);
-	      		var title = "Gallery";
-	      		var message = null;
-				var data = { req: req, title: title, message: message, images: gallery }
-				res.render('gallery/index.ejs', data);
+	      		var message = "Testbericht";
+				var data = { req: req, res: res, message: message, images: gallery }
+				displayImg(data, req, res);
 	      	}
       	});
 	});
@@ -94,5 +93,45 @@ router.post('/image/:id', function(req, res){
 		});
 	});
 });
+
+// Function should
+// - Display Imagegallery
+// - Display specific image if provided with imageId
+// - Display message (in case of post)
+var displayImg = function (data, imageId, message) {
+	var mode = "gallery";
+	var sql = "";
+	req = data.req;
+	res = data.res;
+	if (imageId >= 0 ) {
+		mode = "single";
+	}
+	if (mode == "gallery") {
+		sql = 'SELECT photos.*, users.name AS username FROM photos LEFT JOIN users ON photos.user_id = users.id';
+		data.title = "Gallery";
+	} else if (mode == "single" ) {
+		sql = 'SELECT photos.*, users.name AS username FROM photos LEFT JOIN users ON photos.user_id = users.id WHERE photos.id = ' + imageId + 'LIMIT 1';
+	}
+	req.getConnection(function(err, connection){
+		if (err) {
+			res.send(err);
+			console.log(err);
+		} else {
+			connection.query(sql, function(err, imagearray) {
+				if (err) {
+					res.send(err);
+					console.log(err);
+				} else {
+					data.images = imagearray;
+					if (mode == "single") {
+						data.title = data.images[0].caption;
+					}
+					//data.message = "testmessage";
+					res.render('gallery/index.ejs', data);
+				}
+			})
+		}
+	})
+};
 
 module.exports = router;
