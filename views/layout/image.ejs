@@ -1,6 +1,6 @@
 <% if (locals.images) { 
 	if(images.length != 1) {%>
-	<article>
+	<article id="gallery">
 <% } else { %>
 	<article id="image">
 <% } %>
@@ -8,9 +8,9 @@
 		<section>
 			<a href="/gallery/image/<%=image.id %>">
 				<img src="/<%= image.filename %>" alt="">
-				<p><%= image.caption %></p>
-				<p><%= image.username %></p>
 			</a>
+			<p><%= image.caption %></p>
+			<p><%= image.username %></p>
 		</section>
 		<% if(images.length == 1) { %>
 			<% if (locals.comments && locals.comments.length >= 1) { %>

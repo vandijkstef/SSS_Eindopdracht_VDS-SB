@@ -34,10 +34,17 @@ Contents:
 		font-family: "Calibri", Arial, sans-serif;
 		font-size: 1.2em;
 		line-height: 1.4em;
+		min-height: 100vh;
+		position: relative;
+		padding-bottom: 7em;
+	}
+
+	main {
+		padding: 0 0.5em;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-
+		text-transform: capitalize;
 	}
 
 	p {
@@ -46,22 +53,26 @@ Contents:
 
 	a {
 		text-decoration: none;
+		color: rgba(0,0,0,0.8);
 	}
 
 	a:link {
-
+		color: rgba(0,0,0,0.8);
 	}
 
 	a:visited {
-		text-decoration: italic
+		text-decoration: italic;
+		color: rgba(0,0,0,0.8);
 	}
 
 	a:hover {
 		text-decoration: none;
+		color: rgba(0,0,0,0.6);
 	}
 
 	a:active {
 		text-decoration: none;
+		color: rgba(0,0,0,1);
 	}
 
 	ul {
@@ -79,14 +90,35 @@ Contents:
 /* Header / Nav */
 /* ************ */
 
-	header {
+	header, footer {
+		background-color: #000;
+	}
 
+	header > nav, footer {
+		padding: 2em 1.2em;
 	}
 	
-	header > nav > ul{
+	header > nav > ul {
 		display: flex;
+		max-width: 50em;
 	}
 
+	header > nav > ul > li {
+		margin-right: 2em;
+	}
+	
+	header > nav > ul a, header > nav > ul a:link, header > nav > ul a:visited, footer {
+		color: #FFF;
+	}
+
+	footer {
+		text-align: right;
+		font-size: 0.8em;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		display: block;
+	}
 /* **** */
 /* Page */
 /* **** */
@@ -95,10 +127,14 @@ Contents:
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
+		justify-content: space-around;
+	}
+
+	article#image {
 		justify-content: space-between;
 	}
 
-	article > section {
+	#gallery > section {
 		margin: 1rem;
 	}
 
@@ -106,19 +142,49 @@ Contents:
 		max-width: 10em;
 	}
 
-	article#image > section > a {
-		display: block;
-		min-width: 100vw;
+	article#image > section > a > img {
+		max-width: 100%;
+	}
+
+	#gallery > section {
+		width: 10em;
+		box-shadow: 0 0.2em 0.4em -0.2em rgba(0,0,0,0.5);
+		transition: 0.3s;
+		position: relative;
+		top: 0;
+	}
+
+	#gallery > section:hover {
+		box-shadow: 0 0.4em 0.4em -0.2em rgba(0,0,0,0.5);
+		top: -0.2em;
+	}
+
+	#gallery > section::after {
+		content: ">";
+		float: right;
+		margin-top: -1em;
+		margin-right: 0.5em;
+		opacity: 0;
+		font-size: 2em;
+		transition: 0.3s;
+	}
+
+	#gallery > section:hover::after {
+		opacity: 0.5;
+	}
+
+	#gallery > section > a {
+		padding-bottom: 4.5em;
+	}
+
+	#gallery > section img {
+		width: 100%;
+	}
+
+	#gallery > section > p {
+		margin: 0.5em;
 	}
 	
-
-/* ****** */
-/* Footer */
-/* ****** */
-
-	footer {
-		
-	}
 
 /* ****** */
 /* Tablet */
@@ -140,9 +206,7 @@ Contents:
 		/* **** */
 
 
-		/* ****** */
-		/* Footer */
-		/* ****** */
+
 
 	}
 
@@ -166,9 +230,7 @@ Contents:
 		/* **** */
 
 
-		/* ****** */
-		/* Footer */
-		/* ****** */
+	
 			
 	}
 
@@ -192,8 +254,6 @@ Contents:
 		/* **** */
 
 
-		/* ****** */
-		/* Footer */
-		/* ****** */
+	
 			
 	}	
