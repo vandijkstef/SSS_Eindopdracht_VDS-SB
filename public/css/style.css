@@ -94,6 +94,12 @@ Contents:
 		background-color: #000;
 	}
 
+	header > h1 {
+		margin: 0;
+		padding: 1em 0.5em 0;
+		color: #FFF;
+	}
+
 	header > nav, footer {
 		padding: 2em 1.2em;
 	}
@@ -136,6 +142,14 @@ Contents:
 
 	#gallery > section {
 		margin: 1rem;
+	}
+
+	article > section > p:first-of-type {
+		color: rgba(0,0,0,0.6);
+	}
+
+	article > section > p:nth-of-type(2) {
+		font-size: 0.8em;
 	}
 
 	article > section > a > img {
