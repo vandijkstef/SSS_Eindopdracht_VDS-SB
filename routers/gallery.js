@@ -27,6 +27,7 @@ router.get('/image', function(req, res){
 	res.redirect('/gallery');
 });
 
+
 // Render the single image page
 router.get('/image/:id', function(req, res){
 	var imageId = req.param("id");
