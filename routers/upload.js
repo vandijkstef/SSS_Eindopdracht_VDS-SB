@@ -8,7 +8,8 @@ var fs = require('fs');
 router.get('/', function(req, res){
 	// Only allow logged in users
 	if(req.session.userId) {
-		var data = { req: req }
+		var title = "Upload Photo";
+		var data = { req: req, title: title }
 		res.render('upload/index.ejs', data);
 		console.log(req.session);
 	} else {
