@@ -1,0 +1,27 @@
+<%= include ../layout/header %>
+
+<!-- Single Image Edit -->
+<h1>Edit Image</h1>
+<% images.forEach(function(image) { %>
+	<section>
+		<img src="/<%= image.filename %>" alt="">
+	</section>
+
+	<form method="post" action="<%= req.baseUrl + "/image" %>/<%= image.id %>/edit" enctype="multipart/form-data" id="uploadform">
+	    <div>
+	      	<label for="caption">Caption</label>
+	      	<textarea name="caption" rows="5"><%= image.caption %></textarea>
+	    </div>
+		
+		<div>
+			<input type="checkbox" name="deleteimg">
+			<label for="deleteimg">Check this box to delete this image</label>
+		</div>
+	    <div>
+	      <button type="submit">Edit</button>
+	    </div>
+	</form>
+
+<% }) %>
+
+<%= include ../layout/footer %>

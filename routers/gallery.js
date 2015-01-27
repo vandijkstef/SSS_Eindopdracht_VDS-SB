@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 // Get custom functions
 var vds = require('../vds.js');
@@ -21,6 +22,74 @@ router.get('/image/:id', function(req, res){
 	var imageId = req.param("id");
 	var data = { req: req, res: res }
 	vds.displayImg(data, imageId);
+});
+
+// Render the single image-edit page
+router.get('/image/:id/edit', function(req, res){
+	var imageId = req.param("id");
+	var mode = "edit";
+	var data = { req: req, res: res }
+	vds.displayImg(data, imageId, mode);
+});
+
+// Process the image-edit form
+router.post('/image/:id/edit', function(req, res){
+	var imageId = req.param("id");
+	var caption = req.body.caption;
+	var deleteImg = req.body.deleteimg; // Undefined or on
+
+	req.getConnection(function(err, connection){
+		if (err) {
+			res.send(err);
+			console.log(err);
+			return
+		} else if (deleteImg == "on") {
+			var sql = 'SELECT * FROM PHOTOS WHERE id = ' + imageId;
+			connection.query(sql, function(err, deletedImg){
+				if (err) {
+					res.send(err);
+					console.log(err);
+				} else {
+					var sql2 = 'DELETE FROM photos WHERE id = ' + imageId;
+					connection.query(sql2, function(err){
+						if (err) {
+							res.send(err);
+							console.log(err);
+						} else {
+							fs.unlink('./uploads/' + deletedImg[0].filename, function (err) {
+								if (err) {
+									res.send(err);
+									console.log(err);
+								} else {
+									console.log('FS deleted file');
+								}
+							})
+							console.log(deletedImg);
+							var imageId = req.param("id");
+							var message = "Photo deleted";
+							var data = { req: req, res: res, message: message }
+							vds.displayImg(data);
+							return
+						}
+					})
+				}
+			})
+		} else {
+			var sql = 'UPDATE photos SET caption = "' + caption + '" WHERE id = "' + imageId + '"';
+			connection.query(sql, function(err){
+				if (err) {
+					res.send(err);
+					console.log(err);
+				} else {
+					var imageId = req.param("id");
+					var message = "Photo edited";
+					var mode = "edit";
+					var data = { req: req, res: res, message: message }
+					vds.displayImg(data, imageId, mode);
+				}
+			})
+		}
+	})	
 });
 
 // Process the comment form
@@ -69,17 +138,7 @@ router.post('/image/:id', function(req, res){
 	});
 });
 
-// Image Display
-// - Display Imagegallery
-// - Display specific image if provided with imageId
-// - Display message
-//
-// Usage example: 
-// 	var message = "Message here";
-// 	var data = { req: req, res: res, message: message } // Please give req + res
-// 	displayImg(data);
-//
-// Template takes care of the rest
+
 
 
 
