@@ -30,6 +30,7 @@ router.post('/', function(req, res){
 		      		console.log("SQL Error");
 		      		return;
 		      	} else {
+		      		console.log(req.files);
 		      		var sql2 = 'SELECT * FROM photos WHERE user_id = "' + req.session.userId + '" AND filename = "' + req.files.imagefile.name + '"';
 		      		connection.query(sql2, function(err, uploadedimage) {
 		      			if (err) {

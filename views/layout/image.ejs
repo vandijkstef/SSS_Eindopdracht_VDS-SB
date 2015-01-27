@@ -14,7 +14,7 @@
 		</section>
 		<% if(images.length == 1) {console.log(image) %>
 			<% if (image.owner == true || req.session.user_lever >= 9) { %>
-				<a href="<%= req.baseUrl + "/image" %>/<%= image.id %>/edit">Edit as <%= req.session.userId %></a>
+				<a href="/gallery/image/<%= image.id %>/edit">Edit as <%= req.session.userId %></a>
 			<% } %>
 			<% if (locals.comments && locals.comments.length >= 1) { %>
 				<section>

@@ -42,33 +42,41 @@ module.exports = {
 						res.send(err);
 						console.log(err);
 					} else {
-						// Add specifics based on mode
-						data.images = imagearray;
-						if (imageId > 0) {
-							data.images[0].id = imageId;
-						}
-						// Only for single mode - Get the comments
-						if (mode == "single") {
-							data.title = data.images[0].caption;
-							connection.query(sql2, function(err, commentsarray) {
-								if (err) {
-									res.send(err);
-									console.log(err);
-								} else {
-									if (data.images[0].user_id == data.req.session.userId){
-										data.images[0].owner = true;
+						if (imagearray.length == 0) {
+							data.res.redirect('/404');
+							return
+						} else {	
+							// Add specifics based on mode
+							data.images = imagearray;
+							if (imageId > 0) {
+								data.images[0].id = imageId;
+							}
+							// Only for single mode - Get the comments
+							if (mode == "single") {
+								data.title = data.images[0].caption;
+								connection.query(sql2, function(err, commentsarray) {
+									if (err) {
+										res.send(err);
+										console.log(err);
+									} else {
+										if (data.images[0].user_id == data.req.session.userId){
+											data.images[0].owner = true;
+										}
+										data.comments = commentsarray;
+										data.res.render('gallery/index.ejs', data); // Render - Waited on SQL
+										return
 									}
-									data.comments = commentsarray;
-									data.res.render('gallery/index.ejs', data); // Render - Waited on SQL
-								}
-							})
+								})
+							}
 						}
 						if (mode == "gallery") {
 							data.res.render('gallery/index.ejs', data); // Render - Only full Gallery
+							return
 						}
 						if (mode == "edit") {
 							console.log(data.images)
 							data.res.render('gallery/edit.ejs', data); // Render - Edit single image
+							return
 						}
 					}
 				})

@@ -52,7 +52,7 @@ app.use(multer({
     }
   },
   rename: function (fieldname, filename) {
-    return filename
+    return filename + "_upload"
   }, 
   onFileUploadComplete: function (file) {
     console.log(file.originalname + ' uploaded to  ' + file.path);
@@ -80,11 +80,13 @@ var testRouter = require('./routers/test');
 var userRouter = require('./routers/users');
 var uploadRouter = require('./routers/upload');
 var galleryRouter = require('./routers/gallery');
+var errorRouter = require('./routers/404');
 
 app.use('/test', testRouter);
 app.use('/users', userRouter);
 app.use('/upload', uploadRouter);
 app.use('/gallery', galleryRouter);
+app.use('/404', errorRouter);
 
 // This should be the ONLY route in this file!
 app.get('/', function(req, res){
