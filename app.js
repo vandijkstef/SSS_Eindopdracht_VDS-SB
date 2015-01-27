@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
+
+// Get custom functions
+var vds = require('./vds.js');
 uploadFlag = "inactive";
 
 //  =================
