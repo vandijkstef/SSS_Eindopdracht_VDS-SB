@@ -144,6 +144,14 @@ Contents:
 		margin: 1rem;
 	}
 
+	#image > section {
+		width: 100%;
+	}
+
+	#image > section > a {
+		cursor: default;
+	}
+
 	article > section > p:first-of-type {
 		color: rgba(0,0,0,0.6);
 	}
