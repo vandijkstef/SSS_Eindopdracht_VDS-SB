@@ -26,13 +26,15 @@ router.post("/", function(req, res){
     if(err){ next(err); }
 
     connection.query("SELECT * FROM users WHERE email = ? AND password = ?", [useremail, password], function(err, records){
-      if(err){ next(err); }
+      if(err){ 
+      req.session.error = err + "";
+      res.redirect('/404');
+      return
+      }
 
       if(records.length > 0){
-        console.log(req.session);
         req.session.userId = records[0].id;
         req.session.user_lever = records[0].user_level;
-        console.log("Logged in! HOORAY", records[0]);
         var message = "Logged in as " + records[0].name;
         var data = { req: req, res: res, message: message }
         vds.displayImg(data);
@@ -62,14 +64,16 @@ router.post('/signup', function(req, res){
   var password = req.body.password;
 
   req.getConnection(function(err, connection){
-    if(err) {next(err);}
+    if(err) {
+      req.session.error = err + "";
+      res.redirect('/404');
+      return
+    }
 
     var sql = 'SELECT * FROM users WHERE email = "' +useremail + '"';
-    console.log(sql);
     connection.query(sql, function(err, records) {
       if(records.length == 0){
         var sql2 = 'SELECT * FROM users WHERE name ="' + username + '"';
-        console.log(sql);
         connection.query(sql2, function(err, records){
           if(records.length == 0){
             var sql3 = 'INSERT INTO users (email, name, password, user_level) VALUES("' + useremail + '", "' + username + '", "' + password + '", 1)';
@@ -82,12 +86,14 @@ router.post('/signup', function(req, res){
                   if(err){next(err);}
 
                   connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [useremail, password], function(err, records){
-                    if(err){next(err);}
+                    if(err) {
+                      req.session.error = err + "";
+                      res.redirect('/404');
+                      return
+                    }
 
                     if(records.length > 0){
-                      console.log(req.session);
                       req.session.userId = records[0].id;
-                      console.log("You are logged in", records[0]);
                       var message = "Account created as " + records[0].name;
                       var data = { req: req, res: res, message: message }
                       vds.displayImg(data);
@@ -102,7 +108,6 @@ router.post('/signup', function(req, res){
                 message: message,
                 title : "Sign up"
               }
-              console.log(message);
               res.render('users/signup', data);
             }
           }

@@ -33,16 +33,19 @@ module.exports = {
 		// Get the connection and ..
 		data.req.getConnection(function(err, connection){
 			if (err) {
-				res.send(err);
-				console.log(err);
+				data.req.session.error = err + "";
+				data.res.redirect('/404');
+				return
 			} else {
 				// .. execute the SQL queries
 				connection.query(sql, function(err, imagearray) {
 					if (err) {
-						res.send(err);
-						console.log(err);
+						data.req.session.error = err + "";
+						data.res.redirect('/404');
+						return
 					} else {
 						if (imagearray.length == 0) {
+							data.req.session.error = ("No image found for this id");
 							data.res.redirect('/404');
 							return
 						} else {	
@@ -56,8 +59,9 @@ module.exports = {
 								data.title = data.images[0].caption;
 								connection.query(sql2, function(err, commentsarray) {
 									if (err) {
-										res.send(err);
-										console.log(err);
+										data.req.session.error = err + "";
+										data.res.redirect('/404');
+										return
 									} else {
 										if (data.images[0].user_id == data.req.session.userId){
 											data.images[0].owner = true;

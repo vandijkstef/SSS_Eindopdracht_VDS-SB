@@ -27,15 +27,17 @@ router.post('/', function(req, res){
 			var sql = 'INSERT INTO photos (user_id, caption, filename) VALUES (' + req.session.userId + ',"' + req.body.caption + '","' + req.files.imagefile.name + '")';
 		    connection.query(sql, function(err){
 		      	if(err) {
-		      		console.log("SQL Error");
-		      		return;
+		      		req.session.error = err + "";
+					res.redirect('/404');
+					return
 		      	} else {
 		      		console.log(req.files);
 		      		var sql2 = 'SELECT * FROM photos WHERE user_id = "' + req.session.userId + '" AND filename = "' + req.files.imagefile.name + '"';
 		      		connection.query(sql2, function(err, uploadedimage) {
 		      			if (err) {
-		      				res.render(err);
-		      				console.log(err);
+					      req.session.error = err + "";
+					      res.redirect('/404');
+					      return
 		      			} else {
 		      				var imageId = uploadedimage[0].id;
 		      				var message = "Image upload Succes!";

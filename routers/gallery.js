@@ -40,26 +40,29 @@ router.post('/image/:id/edit', function(req, res){
 
 	req.getConnection(function(err, connection){
 		if (err) {
-			res.send(err);
-			console.log(err);
-			return
+			req.session.error = err + "";
+		    res.redirect('/404');
+		    return
 		} else if (deleteImg == "on") {
 			var sql = 'SELECT * FROM PHOTOS WHERE id = ' + imageId;
 			connection.query(sql, function(err, deletedImg){
 				if (err) {
-					res.send(err);
-					console.log(err);
+					req.session.error = err + "";
+			      	res.redirect('/404');
+			      	return
 				} else {
 					var sql2 = 'DELETE FROM photos WHERE id = ' + imageId;
 					connection.query(sql2, function(err){
 						if (err) {
-							res.send(err);
-							console.log(err);
+							req.session.error = err + "";
+					      	res.redirect('/404');
+					      	return
 						} else {
 							fs.unlink('./uploads/' + deletedImg[0].filename, function (err) {
 								if (err) {
-									res.send(err);
-									console.log(err);
+									req.session.error = err + "";
+							      	res.redirect('/404');
+							      	return
 								} else {
 									console.log('FS deleted file');
 								}
@@ -78,8 +81,9 @@ router.post('/image/:id/edit', function(req, res){
 			var sql = 'UPDATE photos SET caption = "' + caption + '" WHERE id = "' + imageId + '"';
 			connection.query(sql, function(err){
 				if (err) {
-					res.send(err);
-					console.log(err);
+					req.session.error = err + "";
+			      	res.redirect('/404');
+			      	return
 				} else {
 					var imageId = req.param("id");
 					var message = "Photo edited";

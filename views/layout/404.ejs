@@ -1,4 +1,8 @@
 <%= include ../layout/header %>
 <!-- 404 Page -->
 
+<% if (req.session.error) { %>
+	<p><%= req.session.error %></p>
+<% } %>
+
 <%= include ../layout/footer %>
