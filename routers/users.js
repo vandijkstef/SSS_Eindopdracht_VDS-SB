@@ -1,14 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
+// Get custom functions
+var vds = require('../vds.js');
+
 router.get('/', function(req, res){
   // Only allow logged in users
   if(req.session.userId) {
-    var data = { req: req }
+    var title = "Profile";
+    var data = { req: req, title: title }
     res.render('users/profile', data);
   } else {
-    // Or send them to the gallery
-    var data = { req: req}
+    // Or render the login
+    var title = "Login";
+    var data = { req: req, title: title }
     res.render('users/login', data);
   }
 });
@@ -28,14 +33,13 @@ router.post("/", function(req, res){
         req.session.userId = records[0].id;
         req.session.user_lever = records[0].user_level;
         console.log("Logged in! HOORAY", records[0]);
-        var data = {
-          req: req,
-          user: records[0]
-        }
-        res.redirect('/gallery');
+        var message = "Logged in as " + records[0].name;
+        var data = { req: req, res: res, message: message }
+        vds.displayImg(data);
       } else {
         var data = {
           req: req,
+          title: "Login",
           message: "Email adres en/of wachtwoord komen niet overeen."
         }
         res.render("users/login", data);
@@ -45,7 +49,8 @@ router.post("/", function(req, res){
 });
 
 router.get('/signup', function(req, res){
-  var data = { req: req}
+  var title = "Sign up";
+  var data = { req: req, title: title }
   res.render('users/signup', data);
 });
 
@@ -63,13 +68,13 @@ router.post('/signup', function(req, res){
     console.log(sql);
     connection.query(sql, function(err, records) {
       if(records.length == 0){
-        var sql = 'SELECT * FROM users WHERE name ="' + username + '"';
+        var sql2 = 'SELECT * FROM users WHERE name ="' + username + '"';
         console.log(sql);
-        connection.query(sql, function(err){
+        connection.query(sql2, function(err, records){
           if(records.length == 0){
-            var sql = 'INSERT INTO users (email, name, password) VALUES("' + useremail + '", "' + username + '", "' + password + '")';
+            var sql3 = 'INSERT INTO users (email, name, password, user_level) VALUES("' + useremail + '", "' + username + '", "' + password + '", 1)';
             if(username.length && password.length > 6){
-              connection.query(sql, function(err){
+              connection.query(sql3, function(err){
                 var useremail = req.body.useremail;
                 var password = req.body.password;
 
@@ -83,11 +88,9 @@ router.post('/signup', function(req, res){
                       console.log(req.session);
                       req.session.userId = records[0].id;
                       console.log("You are logged in", records[0]);
-                      var data = {
-                        req: req,
-                        user: records[0]
-                      }
-                      res.redirect("/gallery")
+                      var message = "Account created as " + records[0].name;
+                      var data = { req: req, res: res, message: message }
+                      vds.displayImg(data);
                     }
                   })
                 })
@@ -96,7 +99,8 @@ router.post('/signup', function(req, res){
               var message = "You username and password should be longer than 6 characters."
               var data = {
                 req: req, 
-                message: message
+                message: message,
+                title : "Sign up"
               }
               console.log(message);
               res.render('users/signup', data);
@@ -108,11 +112,11 @@ router.post('/signup', function(req, res){
   });
 });
 
-router.get('/logout', function(req, res){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-  // destroy the user's session to log them out                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-  // will be re-created next request                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+router.get('/logout', function(req, res){                                 
+  // destroy the user's session to log them out                                                                 
+  // will be re-created next request 
   req.session.destroy(function(){   
-  res.redirect('/users');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+  res.redirect('/users');                                         
 });
 });
 
