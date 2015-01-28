@@ -34,6 +34,7 @@ router.post("/login", function(req, res){
         console.log(records[0]);
         req.session.userId = records[0].id;
         req.session.username = records[0].name;
+        req.session.user_lever = records[0].user_level;
         console.log("Logged in! HOORAY", req.session);
         res.render("users/welcome", {user: records[0]});
       } else {
