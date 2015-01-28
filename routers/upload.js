@@ -50,8 +50,9 @@ router.post('/', function(req, res){
 	}
 	// Processing if upload was not an image
 	if(uploadFlag == false) {
+		var title = "Upload Photo";
 		var message = "The file uploaded is not an image";
-		var data = {req:req, message:message}
+		var data = {req:req, message:message, title: title}
 		res.render('upload/index.ejs', data);
 	}	
 });
