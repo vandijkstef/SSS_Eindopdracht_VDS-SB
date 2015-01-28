@@ -10,9 +10,15 @@
 			<nav>
 				<ul>
 					<li><a href="/gallery">Gallery</a></li>
-					<li><a href="/users">Profile</a></li>
+					<% if (req.session.userId) { %>
+						<li><a href="/users">Profile</a></li>
+					<% } else{ %>
+						<li><a href="/users">Login</a></li>
+						<li><a href="/users/signup">Sign up</a></li>
+					<% } %>
 					<% if (req.session.userId) { %>
 						<li><a href="/upload">Upload</a></li>
+						<li><a href="/users/logout">Logout</a></li>
 					<% } %>
 				</ul>
 			</nav>	

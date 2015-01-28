@@ -1,0 +1,10 @@
+<%= include ../layout/header %>
+
+<form action="<%= req.baseUrl + "/signup" %>" method="post">
+  email:<input type="email" name="useremail" value="">
+  name:<input type="name" name="username" value="">
+  password:<input type="password" name="password" value="">
+  <button>Sign up!</button>
+</form>
+
+<%= include ../layout/footer %>
