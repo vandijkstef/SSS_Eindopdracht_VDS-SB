@@ -93,7 +93,7 @@ router.post('/signup', function(req, res){
             } else {
               if(records.length == 0){
                 var sql = 'INSERT INTO users (email, name, password) VALUES("' + useremail + '", "' + username + '", "' +password + '")';
-                if(username.length && password.length > 6){
+                if(username.length >= 3 && password.length >= 6){
                   connection.query(sql, function(err){
                     var useremail = req.body.useremail;
                     var password = req.body.password;
@@ -121,7 +121,7 @@ router.post('/signup', function(req, res){
                     });
                   });
                 } else {
-                  var message = " Your username and password should be longer than 6 characters.";
+                  var message = "Your password should be longer than 6 characters. Your name should be longer than 2 characters";
                  var data = {
                     req: req, 
                     message: message,
