@@ -45,7 +45,7 @@ module.exports = {
 						return
 					} else {
 						if (imagearray.length == 0) {
-							data.req.session.error = ("No image found for this id");
+							data.req.session.error = ("No image found for this id - Are you sure there are images uploaded?");
 							data.res.redirect('/404');
 							return
 						} else {	
