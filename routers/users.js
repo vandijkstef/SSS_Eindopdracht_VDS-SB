@@ -38,7 +38,8 @@ router.post("/", function(req, res){
 
       if(records.length > 0){
         req.session.userId = records[0].id;
-        req.session.user_lever = records[0].user_level;
+        req.session.user_level = records[0].user_level;
+        req.session.username = records[0].name;
         var message = "Logged in as " + records[0].name;
         var data = { req: req, res: res, message: message }
         vds.displayImg(data);
@@ -92,7 +93,7 @@ router.post('/signup', function(req, res){
               return
             } else {
               if(records.length == 0){
-                var sql = 'INSERT INTO users (email, name, password) VALUES("' + useremail + '", "' + username + '", "' +password + '")';
+                var sql = 'INSERT INTO users (email, name, password, user_level) VALUES("' + useremail + '", "' + username + '", "' +password + '", 1)';
                 if(username.length >= 3 && password.length >= 6){
                   connection.query(sql, function(err){
                     var useremail = req.body.useremail;
