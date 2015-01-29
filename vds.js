@@ -78,9 +78,14 @@ module.exports = {
 							return
 						}
 						if (mode == "edit") {
-							console.log(data.images)
-							data.res.render('gallery/edit.ejs', data); // Render - Edit single image
-							return
+							if (data.images[0].user_id == data.req.session.userId || data.req.session.user_level >= 9) {
+								data.res.render('gallery/edit.ejs', data); // Render - Edit single image
+								return
+							} else {
+								data.req.session.error = "Not yours to edit";
+	    						data.res.redirect('/404');
+	    						return
+							}
 						}
 					}
 				})

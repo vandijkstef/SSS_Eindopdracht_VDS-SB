@@ -26,10 +26,16 @@ router.get('/image/:id', function(req, res){
 
 // Render the single image-edit page
 router.get('/image/:id/edit', function(req, res){
-	var imageId = req.param("id");
-	var mode = "edit";
-	var data = { req: req, res: res }
-	vds.displayImg(data, imageId, mode);
+	if (req.session.userId) {
+		var imageId = req.param("id");
+		var mode = "edit";
+		var data = { req: req, res: res }
+		vds.displayImg(data, imageId, mode);
+	} else {
+		req.session.error = "Not allowed";
+	    res.redirect('/404');
+	    return
+	}
 });
 
 // Process the image-edit form

@@ -113,6 +113,8 @@ router.post('/signup', function(req, res){
                         } else {
                           if(records.length > 0){
                             req.session.userId = records[0].id;
+                            req.session.user_level = records[0].user_level;
+                            req.session.username = records[0].name;
                             var message = "Account created as " + records[0].name;
                             var data = { req: req, res: res, message: message }
                             vds.displayImg(data);
