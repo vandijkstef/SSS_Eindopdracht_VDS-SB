@@ -9,19 +9,16 @@ The created application is the final assignment for Server Side Scripting at CMD
 - Show all photos
 - Show a specific photo
 - Users levels to add restrictions - 1 is standard / 9 is admin
-
-# To be done
-
-- Allow users to register
-- Allow photo owners to edit or delete their photo
-
-## Maybe
-
-- Comment with an image
+- Users can register
+- Users can change the caption or delete their photo
+- There is an admin that can edit all photos (admin@admin.com / admin)
 
 ### DB Edits
 
-- Added column 'username' and 'is_user' into comments table
+Database is altered. The file in the database dir should help you out.
+
+These are all edits:
+
 	ALTER TABLE comments ADD username varchar(255)
 	ALTER TABLE comments ADD is_user boolean
 	ALTER TABLE users ADD user_level int(1)
