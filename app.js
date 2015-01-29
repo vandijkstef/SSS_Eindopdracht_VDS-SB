@@ -90,7 +90,7 @@ app.use('/404', errorRouter);
 
 // This should be the ONLY route in this file!
 app.get('/', function(req, res){
-  res.redirect('/test');
+  res.redirect('/gallery');
 });
 
 //  =================
