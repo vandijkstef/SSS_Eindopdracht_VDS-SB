@@ -70,10 +70,9 @@ router.post('/image/:id/edit', function(req, res){
 							      	res.redirect('/404');
 							      	return
 								} else {
-									console.log('FS deleted file');
+									//console.log('FS deleted file');
 								}
 							})
-							console.log(deletedImg);
 							var imageId = req.param("id");
 							var message = "Photo deleted";
 							var data = { req: req, res: res, message: message }

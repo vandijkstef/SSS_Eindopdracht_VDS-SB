@@ -28,7 +28,7 @@ module.exports = {
 			sql2 = 'SELECT * FROM comments WHERE photo_id = ' + imageId;
 		} else if (mode == "edit" ) {
 			sql = 'SELECT photos.*, users.name AS username, users.id, users.user_level FROM photos LEFT JOIN users ON photos.user_id = users.id WHERE photos.id = ' + imageId;
-			sql2 = 'SELECT * FROM comments WHERE photo_id = ' + imageId;
+			//sql2 = 'SELECT * FROM comments WHERE photo_id = ' + imageId;
 		}
 		// Get the connection and ..
 		data.req.getConnection(function(err, connection){

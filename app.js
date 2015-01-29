@@ -43,19 +43,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer({
   dest: './uploads/',
   onFileUploadStart: function (file) {
-    console.log(file.mimetype);
     if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/gif') {
       uploadFlag = false;
       return false;
     } else {
-      console.log(file.originalname + ' is starting ...');
+      //console.log(file.originalname + ' is starting ...');
     }
   },
   rename: function (fieldname, filename) {
     return filename + "_upload"
   }, 
   onFileUploadComplete: function (file) {
-    console.log(file.originalname + ' uploaded to  ' + file.path);
+    //console.log(file.originalname + ' uploaded to  ' + file.path);
     uploadFlag = true;
   }
 }));
